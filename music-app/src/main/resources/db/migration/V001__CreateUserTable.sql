@@ -1,0 +1,6 @@
+CREATE TABLE AppUser (
+	 id BIGINT IDENTITY,
+	 name VARCHAR(80) NOT NULL,
+	 createdAt datetime NOT NULL,
+	 CONSTRAINT UC_NAME UNIQUE(NAME) 
+);

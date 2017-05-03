@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+
+.main {
+	background-color: gray;
+	border: 1;
+}
+.header-session {
+	position: fixed;
+	right: 0;
+	top: 0;
+	margin-right: 0.5em;
+	margin-top: 0.5em;
+}
+
+.header-session * {
+	display: inline;
+}
