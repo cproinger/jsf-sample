@@ -21,6 +21,8 @@ public class AppUser {
 	@NotNull
 	private String name;
 	
+	private Date lastModified;
+	
 	private Date createdAt;
 
 	AppUser() {
@@ -35,7 +37,7 @@ public class AppUser {
 	void setDefaults() {
 		createdAt = new Date();
 	}
-
+	
 	public Long getId() {
 		return id;
 	}

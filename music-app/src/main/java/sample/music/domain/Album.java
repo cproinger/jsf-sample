@@ -27,7 +27,7 @@
 	* - file name : DomainEntityJPA2Annotation.vm
 	* - time      : 2015/08/30 n. Chr. at 09:45:11 MESZ
 */
-package sample.music;
+package sample.music.domain;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -99,7 +99,7 @@ public class Album implements Serializable {
 //    private Integer artistid_;
 
 //MP-MANAGED-UPDATABLE-BEGINNING-DISABLE @trackAlbumViaAlbumid-field-album@
-    @OneToMany (targetEntity=sample.music.Track.class, fetch=FetchType.LAZY, mappedBy="album", cascade=CascadeType.REMOVE)//, cascade=CascadeType.ALL)
+    @OneToMany (targetEntity=sample.music.domain.Track.class, fetch=FetchType.LAZY, mappedBy="album", cascade=CascadeType.REMOVE)//, cascade=CascadeType.ALL)
     private Set <Track> tracks = new HashSet<Track>(); 
 
 //MP-MANAGED-UPDATABLE-ENDING

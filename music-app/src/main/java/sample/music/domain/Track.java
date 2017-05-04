@@ -27,7 +27,7 @@
 	* - file name : DomainEntityJPA2Annotation.vm
 	* - time      : 2015/08/30 n. Chr. at 09:45:11 MESZ
 */
-package sample.music;
+package sample.music.domain;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -145,7 +145,7 @@ public class Track implements Serializable {
 //    private Integer mediatypeid_;
 
 //MP-MANAGED-UPDATABLE-BEGINNING-DISABLE @invoicelineTrackViaTrackid-field-track@
-    @OneToMany (targetEntity=sample.music.Invoiceline.class, fetch=FetchType.LAZY, mappedBy="track", cascade=CascadeType.REMOVE)//, cascade=CascadeType.ALL)
+    @OneToMany (targetEntity=sample.music.domain.Invoiceline.class, fetch=FetchType.LAZY, mappedBy="track", cascade=CascadeType.REMOVE)//, cascade=CascadeType.ALL)
     private Set <Invoiceline> invoicelineTrackViaTrackid = new HashSet<Invoiceline>(); 
 
 //MP-MANAGED-UPDATABLE-ENDING

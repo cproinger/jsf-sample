@@ -27,7 +27,7 @@
 	* - file name : DomainEntityJPA2Annotation.vm
 	* - time      : 2015/08/30 n. Chr. at 09:45:11 MESZ
 */
-package sample.music;
+package sample.music.domain;
 
 import java.io.Serializable;
 

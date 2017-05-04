@@ -5,7 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Music-App</title>
+	<title><ui:insert name="title">Music-App</ui:insert></title>
 	<h:outputStylesheet target="header" name="default.css" library="css" />
 </h:head>
 <h:body>
@@ -15,6 +15,7 @@
 				<h:graphicImage name="Logo.png" library="img" />
 			</h:link>
 		</div>
+		<h:link outcome="artistList" value="artists"/>
 		<div class="header-session">
 			<ui:fragment rendered="#{sessionCtrlr.loggedIn}">
 				<span class="username" id="username">[#{sessionCtrlr.username}]</span>
@@ -29,11 +30,13 @@
 				value="register" />
 		</div>
 	</div>
+	
 	<div class="main">
 		<ui:insert name="content">
 			<ui:include src="/noContent.xhtml" />
 		</ui:insert>
 	</div>
+	
 	<div class="footer"></div>
 </h:body>
 </html>

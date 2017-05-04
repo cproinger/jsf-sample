@@ -27,7 +27,7 @@
 	* - file name : DomainEntityJPA2Annotation.vm
 	* - time      : 2015/08/30 n. Chr. at 09:45:11 MESZ
 */
-package sample.music;
+package sample.music.domain;
 
 import java.io.Serializable;
 
@@ -41,6 +41,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Formula;
 
 /**
  *
@@ -81,6 +82,13 @@ public class Artist implements Serializable {
 //    private Set <Album> albumArtistViaArtistid = new HashSet<Album>(); 
 
 //MP-MANAGED-UPDATABLE-ENDING
+    @Formula("(SELECT COUNT(*) FROM ALBUM A WHERE A.Artist_Id = Artist_Id)")
+    private int albumCount;
+    
+    public int getAlbumCount() {
+		return albumCount;
+	}
+    
     /**
     * Default constructor
     */

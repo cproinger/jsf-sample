@@ -27,46 +27,43 @@
 	* - file name : DomainEntityJPA2Annotation.vm
 	* - time      : 2015/08/30 n. Chr. at 09:45:11 MESZ
 */
-package sample.music;
+package sample.music.domain;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.BatchSize;
 
 /**
  *
- * <p>Title: Playlist</p>
+ * <p>Title: Genre</p>
  *
- * <p>Description: Domain Object describing a Playlist entity</p>
+ * <p>Description: Domain Object describing a Genre entity</p>
  *
  */
-@Entity (name="Playlist")
-@Table (name="Playlist")
+@Entity (name="Genre")
+@Table (name="Genre")
 //@NamedQueries ({
-//	 @NamedQuery(name="Playlist.findAll", query="SELECT a FROM Playlist a")
-//	,@NamedQuery(name="Playlist.findByName", query="SELECT a FROM Playlist a WHERE a.name = :name")
-//	,@NamedQuery(name="Playlist.findByNameContaining", query="SELECT a FROM Playlist a WHERE a.name like :name")
+//	 @NamedQuery(name="Genre.findAll", query="SELECT a FROM Genre a")
+//	,@NamedQuery(name="Genre.findByName", query="SELECT a FROM Genre a WHERE a.name = :name")
+//	,@NamedQuery(name="Genre.findByNameContaining", query="SELECT a FROM Genre a WHERE a.name like :name")
 //
 //})
-
-public class Playlist implements Serializable {
+@BatchSize(size = 20)
+public class Genre implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public static final String FIND_ALL = "Playlist.findAll";
-    public static final String FIND_BY_NAME = "Playlist.findByName";
-    public static final String FIND_BY_NAME_CONTAINING ="Playlist.findByNameContaining";
+    public static final String FIND_ALL = "Genre.findAll";
+    public static final String FIND_BY_NAME = "Genre.findByName";
+    public static final String FIND_BY_NAME_CONTAINING ="Genre.findByNameContaining";
 	
-    @Id @Column(name="Playlist_id" ) 
+    @Id @Column(name="Genre_id" ) 
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
@@ -77,21 +74,15 @@ public class Playlist implements Serializable {
     private String name; 
 //MP-MANAGED-UPDATABLE-ENDING
 
-//MP-MANAGED-UPDATABLE-BEGINNING-DISABLE @m2m-trackPlaylisttrackViaTrackid-playlist@
-    @ManyToMany
-    @JoinTable(name="PLAYLISTTRACK", 
-        joinColumns=@JoinColumn(name="Playlist_id"), 
-        inverseJoinColumns=@JoinColumn(name="Track_id") 
-    )
-    private Set <Track> trackPlaylisttrackViaTrackid = new HashSet <Track> (); 
-// playlisttrack.TrackId->track.TrackId -- playlisttrack.TrackId->track.TrackId
-// TRACK_PLAYLISTTRACK_VIA_TRACKID
+//MP-MANAGED-UPDATABLE-BEGINNING-DISABLE @trackGenreViaGenreid-field-genre@
+//    @OneToMany (targetEntity=example.chinook.domain.Track.class, fetch=FetchType.LAZY, mappedBy="genre", cascade=CascadeType.REMOVE)//, cascade=CascadeType.ALL)
+//    private Set <Track> trackGenreViaGenreid = new HashSet<Track>(); 
 
 //MP-MANAGED-UPDATABLE-ENDING
     /**
     * Default constructor
     */
-    public Playlist() {
+    public Genre() {
     }
 
     public Integer getId() {
@@ -111,24 +102,24 @@ public class Playlist implements Serializable {
 
 
 
-//MP-MANAGED-UPDATABLE-BEGINNING-DISABLE @playlisttrackViaPlaylistByPlaylistid-getter-playlist@
+//MP-MANAGED-UPDATABLE-BEGINNING-DISABLE @trackGenreViaGenreid-getter-genre@
+//    public Set<Track> getTrackGenreViaGenreid() {
+//        if (trackGenreViaGenreid == null){
+//            trackGenreViaGenreid = new HashSet<Track>();
+//        }
+//        return trackGenreViaGenreid;
+//    }
+//
+//    public void setTrackGenreViaGenreid (Set<Track> trackGenreViaGenreid) {
+//        this.trackGenreViaGenreid = trackGenreViaGenreid;
+//    }	
+//    
+//    public void addTrackGenreViaGenreid (Track element) {
+//    	    getTrackGenreViaGenreid().add(element);
+//    }
+    
 //MP-MANAGED-UPDATABLE-ENDING
 
-    public Set<Track> getTrackPlaylisttrackViaTrackid() {
-        if (trackPlaylisttrackViaTrackid == null){
-            trackPlaylisttrackViaTrackid = new HashSet<Track>();
-        }
-        return trackPlaylisttrackViaTrackid;
-    }
-
-    public void setTrackPlaylisttrackViaTrackid (Set<Track> trackPlaylisttrackViaTrackid) {
-        this.trackPlaylisttrackViaTrackid = trackPlaylisttrackViaTrackid;
-    }
-    	
-    public void addTrackPlaylisttrackViaTrackid (Track element) {
-        getTrackPlaylisttrackViaTrackid().add(element);
-    }
-	
 
 
 //MP-MANAGED-ADDED-AREA-BEGINNING @implementation@
