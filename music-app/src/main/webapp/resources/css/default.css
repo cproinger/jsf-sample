@@ -3,6 +3,8 @@
 .main {
 	background-color: gray;
 	border: 1;
+	width: 80%;
+	padding: 1em; 
 }
 .header-session {
 	position: fixed;
