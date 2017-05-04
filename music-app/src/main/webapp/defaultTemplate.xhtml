@@ -15,7 +15,10 @@
 				<h:graphicImage name="Logo.png" library="img" />
 			</h:link>
 		</div>
-		<h:link outcome="artistList" value="artists"/>
+		<ul class="horizontalMenu">
+			<li><h:link outcome="artistList" value="artists"/></li>
+			<li><h:link outcome="albumList" value="albums"/></li>
+		</ul>
 		<div class="header-session">
 			<ui:fragment rendered="#{sessionCtrlr.loggedIn}">
 				<span class="username" id="username">[#{sessionCtrlr.username}]</span>

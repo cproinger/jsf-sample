@@ -6,28 +6,28 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="defaultTemplate.xhtml">
-	<ui:define name="title">Artists</ui:define>
+	<ui:define name="title">Albums</ui:define>
 	<ui:define name="content">
-		<h1>Artists</h1>
+		<h1>Albums</h1>
 
 		<h:form>
-			<p:dataTable var="artist" value="#{artistListCtrlr.artists}"
-				filteredValue="#{artistListCtrlr.filteredArtists}"
-				widgetVar="artistsTable" emptyMessage="No Artists found"
+			<p:dataTable var="a" value="#{albumListCtrlr.albums}"
+				filteredValue="#{artistListCtrlr.filteredAlbums}"
+				widgetVar="albumTable" emptyMessage="No Albums found"
 				paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15" rows="10">
 
-				<p:column headerText="Name" filterBy="#{artist.name}"
+				<p:column headerText="Title" filterBy="#{a.title}"
 					filterMatchMode="contains">
-					<h:link value="#{artist.name}" outcome="artistDetails"
+					<h:link value="#{a.name}" outcome="artistDetails"
 						includeViewParams="true">
-						<f:param value="#{artist.id}" name="id" />
+						<f:param value="#{a.id}" name="id" />
 					</h:link>
 				</p:column>
 
-				<p:column headerText="Albums">
-					<h:outputText value="#{artist.albumCount}" />
+				<p:column headerText="Tracks">
+					<h:outputText value="#{a.trackCount}" />
 				</p:column>
 			</p:dataTable>
 		</h:form>

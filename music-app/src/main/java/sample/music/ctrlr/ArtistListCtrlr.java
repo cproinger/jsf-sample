@@ -19,7 +19,7 @@ public class ArtistListCtrlr implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private List<Artist> artists = new ArrayList<Artist>();
-	private List<Artist> filteredArtists = new ArrayList<>();
+	private List<Artist> filteredArtists;
 	
 	public List<Artist> getArtists() {
 		return artists;
@@ -30,8 +30,6 @@ public class ArtistListCtrlr implements Serializable {
 	}
 	public void setFilteredArtists(List<Artist> filteredArtists) {
 		this.filteredArtists = filteredArtists;
-		if(filteredArtists != null && filteredArtists.size() != artists.size()) 
-			System.out.println("filteredArtists: " + filteredArtists.size());
 	}
 	
 	@Inject

@@ -3,9 +3,13 @@
 .main {
 	background-color: gray;
 	border: 1;
-	width: 80%;
-	padding: 1em; 
+	clear: both;
 }
+.header * {
+	float: left;
+	display: inline;
+}
+
 .header-session {
 	position: fixed;
 	right: 0;
@@ -15,5 +19,25 @@
 }
 
 .header-session * {
-	display: inline;
+	float: inline;
+/* 	border: 1px solid; */
+/* 	border-color: blue; */
+}
+
+.horizontalMenu {
+	list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.horizontalMenu li {
+    display: inline;
+    float: left;
+}
+
+.horizontalMenu li a {
+    display: block;
+    width: 60px;
+    padding: 8px;
+    background-color: #dddddd;
 }
