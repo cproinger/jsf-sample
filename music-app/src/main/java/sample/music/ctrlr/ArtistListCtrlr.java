@@ -11,6 +11,7 @@ import javax.inject.Named;
 
 import sample.music.domain.Artist;
 import sample.music.repo.ArtistRepository;
+import sample.music.service.ArtistService;
 
 @Named
 @ViewScoped
@@ -35,8 +36,11 @@ public class ArtistListCtrlr implements Serializable {
 	@Inject
 	private ArtistRepository artistRepo;
 	
+	@Inject
+	private ArtistService artistService;
+	
 	@PostConstruct
 	void loadArtists() {
-		artists = artistRepo.findAll();
+		artists = artistService.findAll();
 	}
 }

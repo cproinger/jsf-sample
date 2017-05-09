@@ -12,4 +12,9 @@ public class ArtistRepository extends AbstractRepository<Artist> {
 	public ArtistRepository() {
 		super(Artist.class);
 	}
+
+	@Override
+	protected String getDefaultSortProperty() {
+		return "name";
+	}
 }

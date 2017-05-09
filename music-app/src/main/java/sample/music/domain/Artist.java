@@ -31,6 +31,7 @@ package sample.music.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,6 +42,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Formula;
 
 /**
@@ -59,6 +62,8 @@ import org.hibernate.annotations.Formula;
 
 })
 @BatchSize(size = 20)
+@Cacheable(true)
+//@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Artist implements Serializable {
     private static final long serialVersionUID = 1L;
 

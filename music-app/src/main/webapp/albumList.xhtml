@@ -12,7 +12,7 @@
 
 		<h:form>
 			<p:dataTable var="a" value="#{albumListCtrlr.albums}"
-				filteredValue="#{artistListCtrlr.filteredAlbums}"
+				filteredValue="#{albumListCtrlr.filteredAlbums}"
 				widgetVar="albumTable" emptyMessage="No Albums found"
 				paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -20,7 +20,7 @@
 
 				<p:column headerText="Title" filterBy="#{a.title}"
 					filterMatchMode="contains">
-					<h:link value="#{a.name}" outcome="artistDetails"
+					<h:link value="#{a.title}" outcome="albumDetails"
 						includeViewParams="true">
 						<f:param value="#{a.id}" name="id" />
 					</h:link>

@@ -1,10 +1,27 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
+	<f:metadata>
+		<f:viewParam name="id" value="#{albumDetailsCtrlr.albumId}"
+			required="true" />
+		<f:viewAction action="#{albumDetailsCtrlr.onLoad}" />
+	</f:metadata>
 	<ui:composition template="/defaultTemplate.xhtml">
-		
+		<ui:define name="title">Album Details - #{albumDetailsCtrlr.album.title}</ui:define>
+		<ui:define name="content">
+			<h2>Tracks of Album #{albumDetailsCtrlr.album.title}</h2>
+			<p:dataTable var="a" value="#{albumDetailsCtrlr.album.tracks}">
+				<p:column headerText="Name">
+					<h:outputText value="#{a.name}" />
+				</p:column>
+				<!-- 			<p:column headerText="Albums"> -->
+				<!-- 				<h:outputText value="#{a.albumCount}" /> -->
+				<!-- 			</p:column> -->
+			</p:dataTable>
+		</ui:define>
 	</ui:composition>
 </html>

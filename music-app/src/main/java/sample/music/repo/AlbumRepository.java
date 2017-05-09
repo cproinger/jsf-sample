@@ -20,4 +20,9 @@ public class AlbumRepository extends AbstractRepository<Album> {
 				.setParameter("artistId", artistId)
 				.getResultList();
 	}
+
+	@Override
+	protected String getDefaultSortProperty() {
+		return "title";
+	}
 }

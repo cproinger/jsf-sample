@@ -1,0 +1,2 @@
+dependencies: org.hibernate.infinispan export
+dependencies: org.infinispan.commons, org.jboss.as.clustering.infinispan export

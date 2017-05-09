@@ -42,131 +42,161 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedEntityGraphs;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.JoinFormula;
 
 /**
  *
- * <p>Title: Album</p>
+ * <p>
+ * Title: Album
+ * </p>
  *
- * <p>Description: Domain Object describing a Album entity</p>
+ * <p>
+ * Description: Domain Object describing a Album entity
+ * </p>
  *
  */
-@Entity (name="Album")
-@Table (name="Album")
-@NamedQueries ({
-	 @NamedQuery(name="Album.findAll", query="SELECT a FROM Album a")
-	,@NamedQuery(name="Album.findByTitle", query="SELECT a FROM Album a WHERE a.title = :title")
-	,@NamedQuery(name="Album.findByTitleContaining", query="SELECT a FROM Album a WHERE a.title like :title")
+@Entity(name = "Album")
+@Table(name = "Album")
+@NamedQueries({ @NamedQuery(name = "Album.findAll", query = "SELECT a FROM Album a"),
+		@NamedQuery(name = "Album.findByTitle", query = "SELECT a FROM Album a WHERE a.title = :title"),
+		@NamedQuery(name = "Album.findByTitleContaining", query = "SELECT a FROM Album a WHERE a.title like :title")
 
 })
-
+@NamedEntityGraphs({
+	@NamedEntityGraph(name = Album.GRAPH_ALBUM_DETAILS, attributeNodes = @NamedAttributeNode(value = "tracks")),
+	@NamedEntityGraph(name = Album.GRAPH_ALBUM_TRACK_COUNT, attributeNodes = @NamedAttributeNode(value = "albumTracks"))
+})
+// @Cacheable(true)
+// @Cache(include = "non-lazy", usage =
+// CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Album implements Serializable {
-    private static final long serialVersionUID = 1L;
-
-    public static final String FIND_ALL = "Album.findAll";
-    public static final String FIND_BY_TITLE = "Album.findByTitle";
-    public static final String FIND_BY_TITLE_CONTAINING ="Album.findByTitleContaining";
-	
-    @Id @Column(name="Album_id" ) 
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    
-    /**
-     * lazy mapping of the track-count of this album
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-//    @OneToOne(fetch = FetchType.LAZY) //-> NPE: Hibernate Bug?
-    @JoinFormula(value = "Album_id", referencedColumnName = "Album_id")
-    private AlbumTracks albumTracks;
-
-//MP-MANAGED-ADDED-AREA-BEGINNING @Title-field-annotation@
-//MP-MANAGED-ADDED-AREA-ENDING @Title-field-annotation@
-//MP-MANAGED-UPDATABLE-BEGINNING-DISABLE @ATTRIBUTE-Title@
-    @Column(name="Title"  , length=160 , nullable=false , unique=false)
-    private String title; 
-//MP-MANAGED-UPDATABLE-ENDING
-
-    @ManyToOne (fetch=FetchType.LAZY , optional=false)
-    @JoinColumn(name="Artist_id", referencedColumnName = "Artist_id" , nullable=false , unique=false , insertable=true, updatable=true) 
-    private Artist artist;  
-
-//    @Column(name="Artist_id"  , nullable=false , unique=true, insertable=false, updatable=false)
-//    private Integer artistid_;
-
-//MP-MANAGED-UPDATABLE-BEGINNING-DISABLE @trackAlbumViaAlbumid-field-album@
-    @OneToMany (targetEntity=sample.music.domain.Track.class, fetch=FetchType.LAZY, mappedBy="album", cascade=CascadeType.REMOVE)//, cascade=CascadeType.ALL)
-    private Set <Track> tracks = new HashSet<Track>(); 
-
-//MP-MANAGED-UPDATABLE-ENDING
-    /**
-    * Default constructor
-    */
-    public Album() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-    
-//MP-MANAGED-UPDATABLE-BEGINNING-DISABLE @GETTER-SETTER-Title@
-    public String getTitle() {
-        return title;
-    }
-	
-    public void setTitle (String title) {
-        this.title =  title;
-    }
-	
-//MP-MANAGED-UPDATABLE-ENDING
 
 
-    public Artist getArtist () {
-    	return artist;
-    }
-    
-//    public String getArtistName() {
-//    	return artist == null ? null : artist.getName();
-//    }
-	
-    public void setArtist(Artist artistid) {
-    	this.artist = artistid;
-    }
+	private static final long serialVersionUID = 1L;
 
-//    public Integer getArtistid_() {
-//        return artistid_;
-//    }
-//	
-//    public void setArtistid_ (Integer artistid) {
-//        this.artistid_ =  artistid;
-//    }
-	
+	public static final String GRAPH_ALBUM_TRACK_COUNT = "graph.Album.trackCount";
+	public static final String GRAPH_ALBUM_DETAILS = "graph.Album.details";
+	public static final String FIND_ALL = "Album.findAll";
+	public static final String FIND_BY_TITLE = "Album.findByTitle";
+	public static final String FIND_BY_TITLE_CONTAINING = "Album.findByTitleContaining";
 
-//MP-MANAGED-UPDATABLE-BEGINNING-DISABLE @trackAlbumViaAlbumid-getter-album@
-    public Set<Track> getTracks() {
-        if (tracks == null){
-            tracks = new HashSet<Track>();
-        }
-        return tracks;
-    }
+	@Id
+	@Column(name = "Album_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
 
-    public void setTracks (Set<Track> trackAlbumViaAlbumid) {
-        this.tracks = trackAlbumViaAlbumid;
-    }	
-    
-    public void addTrack (Track element) {
-    	    getTracks().add(element);
-    }
-    
-//MP-MANAGED-UPDATABLE-ENDING
+	/**
+	 * lazy mapping of the track-count of this album
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
+	// @OneToOne(fetch = FetchType.LAZY) //-> NPE: Hibernate Bug?
+	@JoinFormula(value = "Album_id", referencedColumnName = "Album_id")
+	private AlbumTracks albumTracks;
 
+	// MP-MANAGED-ADDED-AREA-BEGINNING @Title-field-annotation@
+	// MP-MANAGED-ADDED-AREA-ENDING @Title-field-annotation@
+	// MP-MANAGED-UPDATABLE-BEGINNING-DISABLE @ATTRIBUTE-Title@
+	@Column(name = "Title", length = 160, nullable = false, unique = false)
+	private String title;
+	// MP-MANAGED-UPDATABLE-ENDING
 
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "Artist_id", referencedColumnName = "Artist_id", nullable = false, unique = false, insertable = true, updatable = true)
+	private Artist artist;
 
-//MP-MANAGED-ADDED-AREA-BEGINNING @implementation@
-//MP-MANAGED-ADDED-AREA-ENDING @implementation@
+	// @Column(name="Artist_id" , nullable=false , unique=true,
+	// insertable=false, updatable=false)
+	// private Integer artistid_;
+
+	// MP-MANAGED-UPDATABLE-BEGINNING-DISABLE @trackAlbumViaAlbumid-field-album@
+	@OneToMany(targetEntity = Track.class, fetch = FetchType.LAZY, mappedBy = "album", cascade = CascadeType.REMOVE) // ,
+																														// cascade=CascadeType.ALL)
+	// @OrderBy("name")
+	// @Fetch(FetchMode.SELECT)
+	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+	private Set<Track> tracks = new HashSet<Track>();
+
+	// MP-MANAGED-UPDATABLE-ENDING
+
+	public int getTrackCount() {
+		return albumTracks.getCount();
+	}
+
+	/**
+	 * Default constructor
+	 */
+	public Album() {
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	// MP-MANAGED-UPDATABLE-BEGINNING-DISABLE @GETTER-SETTER-Title@
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	// MP-MANAGED-UPDATABLE-ENDING
+
+	public Artist getArtist() {
+		return artist;
+	}
+
+	// public String getArtistName() {
+	// return artist == null ? null : artist.getName();
+	// }
+
+	public void setArtist(Artist artistid) {
+		this.artist = artistid;
+	}
+
+	// public Integer getArtistid_() {
+	// return artistid_;
+	// }
+	//
+	// public void setArtistid_ (Integer artistid) {
+	// this.artistid_ = artistid;
+	// }
+
+	// MP-MANAGED-UPDATABLE-BEGINNING-DISABLE
+	// @trackAlbumViaAlbumid-getter-album@
+	public Set<Track> getTracks() {
+		if (tracks == null) {
+			tracks = new HashSet<Track>();
+		}
+		return tracks;
+	}
+
+	public void setTracks(Set<Track> trackAlbumViaAlbumid) {
+		this.tracks = trackAlbumViaAlbumid;
+	}
+
+	public void addTrack(Track element) {
+		getTracks().add(element);
+	}
+
+	// MP-MANAGED-UPDATABLE-ENDING
+
+	// MP-MANAGED-ADDED-AREA-BEGINNING @implementation@
+	// MP-MANAGED-ADDED-AREA-ENDING @implementation@
 
 }
