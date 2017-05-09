@@ -41,6 +41,14 @@
 		<filter-name>javamelody</filter-name>
 		<filter-class>net.bull.javamelody.MonitoringFilter</filter-class>
 		<async-supported>true</async-supported>
+		<init-param>
+			<param-name>displayed-counters</param-name>
+			<param-value>http,sql,ejb,jpa,error,log</param-value>
+		</init-param>
+		<init-param>
+			<param-name>datasources</param-name>
+			<param-value>java:jboss/datasources/MusicDS</param-value>
+		</init-param>
 	</filter>
 	<filter-mapping>
 		<filter-name>javamelody</filter-name>

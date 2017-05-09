@@ -3,6 +3,7 @@ package sample.music.repo;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
+import sample.common.MonitoredCDIBean;
 import sample.music.domain.Artist;
 
 @Named

@@ -6,6 +6,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import sample.common.MonitoredCDIBean;
 import sample.music.domain.Album;
 import sample.music.domain.Artist;
 import sample.music.repo.AlbumRepository;
@@ -42,6 +43,7 @@ public class ArtistDetailsCtrlr {
 		return artistId;
 	}
 	
+	@MonitoredCDIBean
 	public void onLoad() {
 		if(artistId == null)
 			return;

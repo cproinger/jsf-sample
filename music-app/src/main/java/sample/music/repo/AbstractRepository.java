@@ -13,6 +13,9 @@ import javax.persistence.criteria.Root;
 
 import org.hibernate.annotations.QueryHints;
 
+import sample.common.MonitoredCDIBean;
+
+@MonitoredCDIBean
 abstract class AbstractRepository<E> {
 
 //	@PersistenceContext
@@ -30,6 +33,7 @@ abstract class AbstractRepository<E> {
 		this.clazz = clazz;
 	}
 
+	@MonitoredCDIBean
 	public List<E> findAll(String loadgraph) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<E> cqry = cb.createQuery(clazz);
@@ -44,6 +48,7 @@ abstract class AbstractRepository<E> {
 		return q.getResultList();
 	}
 	
+	@MonitoredCDIBean
 	public List<E> findAll() {
 		return findAll(null);
 	}

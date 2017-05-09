@@ -9,6 +9,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import sample.common.MonitoredCDIBean;
 import sample.music.domain.Artist;
 import sample.music.repo.ArtistRepository;
 import sample.music.service.ArtistService;
@@ -40,6 +41,7 @@ public class ArtistListCtrlr implements Serializable {
 	private ArtistService artistService;
 	
 	@PostConstruct
+	@MonitoredCDIBean
 	void loadArtists() {
 		artists = artistService.findAll();
 	}
