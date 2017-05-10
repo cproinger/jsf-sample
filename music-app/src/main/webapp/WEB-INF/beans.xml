@@ -6,5 +6,6 @@
 
 	<interceptors>
 		<class>sample.common.MyMonitoringInterceptor</class>
+		<class>sample.common.LogInterceptor</class>
 	</interceptors>
 </beans>

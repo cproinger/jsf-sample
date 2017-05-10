@@ -7,6 +7,8 @@ import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
+import org.picketlink.annotations.PicketLink;
+
 /**
  * open entity manager in view pattern
  * 
@@ -16,18 +18,33 @@ import javax.persistence.EntityManagerFactory;
  *
  */
 @ApplicationScoped
+//@Log
 public class EntityManagerProducer {
-
+	
 	@javax.persistence.PersistenceUnit
 	private EntityManagerFactory emf;
-	
+
 	@Produces
 	@RequestScoped
-	public EntityManager crateEntityManager() {
+	public EntityManager createEntityManager() {
 		return emf.createEntityManager();
 	}
-	
+
+	/**
+	 * hm this entityManager is not closed until shutdown. seems leaky. 
+	 * @return
+	 */
+	@Produces
+	@PicketLink
+	public EntityManager createPicketLinkEntityManager() {
+		return emf.createEntityManager();
+	}
+
 	public void closeEntityManager(@Disposes EntityManager em) {
+		em.close();
+	}
+	
+	public void closePicketLinkEntityManager(@Disposes @PicketLink EntityManager em) {
 		em.close();
 	}
 }

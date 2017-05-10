@@ -20,16 +20,16 @@
 			<li><h:link outcome="albumList" value="albums"/></li>
 		</ul>
 		<div class="header-session">
-			<ui:fragment rendered="#{sessionCtrlr.loggedIn}">
+			<ui:fragment rendered="#{identity.loggedIn}">
 				<span class="username" id="username">[#{sessionCtrlr.username}]</span>
 			</ui:fragment>
 			<h:form id="loginForm">
-				<h:commandLink rendered="#{!sessionCtrlr.loggedIn}"
-					action="#{sessionCtrlr.login}" value="login" />
-				<h:commandLink rendered="#{sessionCtrlr.loggedIn}"
-					action="#{sessionCtrlr.logout}" value="logout" />
+				<h:link rendered="#{!identity.loggedIn}"
+					outcome="login" value="login" />
+				<h:commandLink rendered="#{identity.loggedIn}"
+					action="#{identity.logout}" value="logout" />
 			</h:form>
-			<h:link rendered="#{!sessionCtrlr.loggedIn}" outcome="registration"
+			<h:link rendered="#{!identity.loggedIn}" outcome="registration"
 				value="register" />
 		</div>
 	</div>

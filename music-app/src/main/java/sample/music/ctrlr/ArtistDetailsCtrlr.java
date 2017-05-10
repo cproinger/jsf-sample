@@ -11,6 +11,7 @@ import sample.music.domain.Album;
 import sample.music.domain.Artist;
 import sample.music.repo.AlbumRepository;
 import sample.music.repo.ArtistRepository;
+import sample.music.service.ArtistService;
 
 @Named
 @RequestScoped
@@ -24,7 +25,7 @@ public class ArtistDetailsCtrlr {
 	private Integer artistId;
 	
 	@Inject
-	private ArtistRepository artistRepo;
+	private ArtistService artistService;
 	
 //	@Inject
 //	public ArtistDetailsCtrlr(ArtistRepository artistRepo, AlbumRepository albumRepo) {
@@ -47,7 +48,7 @@ public class ArtistDetailsCtrlr {
 	public void onLoad() {
 		if(artistId == null)
 			return;
-		artist = artistRepo.findById(artistId);
+		artist = artistService.findById(artistId);
 		albums = albumRepo.findByArtistId(artistId);
 	}
 	

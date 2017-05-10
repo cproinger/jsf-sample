@@ -31,7 +31,7 @@ public class SessionCtrlr implements Serializable {
 	}
 
 	private String redirectToCurrentPage() {
-		return FacesContext.getCurrentInstance().getViewRoot().getViewId()+"?faces-redirect=true";
+		return FacesContext.getCurrentInstance().getViewRoot().getViewId()+"?faces-redirect=true&includeViewParams=true";
 	}
 	public String logout() {
 		loggedIn = false;
