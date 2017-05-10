@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/defaultTemplate.xhtml">
+		<ui:define name="title">Track Details</ui:define>
+		<ui:define name="content">
+			<p:panelGrid columns="2">
+				<h:outputText value="name" />
+				<h:outputText value="#{trackDetailsCtrlr.track.name}" />
+				
+				<h:outputText value="composer" />
+				<h:outputText value="#{trackDetailsCtrlr.track.composer}" />
+				
+				<h:outputText value="milliseconds" />
+				<h:outputText value="#{trackDetailsCtrlr.track.milliseconds}" />
+			</p:panelGrid>
+		</ui:define>
+	</ui:composition>
+</html>

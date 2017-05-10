@@ -16,7 +16,7 @@ import org.hibernate.annotations.QueryHints;
 import sample.common.MonitoredCDIBean;
 
 @MonitoredCDIBean
-abstract class AbstractRepository<E> {
+abstract class AbstractRepository<E> implements SimpleRepository<E> {
 
 //	@PersistenceContext
 	@Inject
@@ -33,6 +33,10 @@ abstract class AbstractRepository<E> {
 		this.clazz = clazz;
 	}
 
+	/* (non-Javadoc)
+	 * @see sample.music.repo.SimpleRepository#findAll(java.lang.String)
+	 */
+	@Override
 	@MonitoredCDIBean
 	public List<E> findAll(String loadgraph) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -48,6 +52,10 @@ abstract class AbstractRepository<E> {
 		return q.getResultList();
 	}
 	
+	/* (non-Javadoc)
+	 * @see sample.music.repo.SimpleRepository#findAll()
+	 */
+	@Override
 	@MonitoredCDIBean
 	public List<E> findAll() {
 		return findAll(null);
@@ -55,10 +63,18 @@ abstract class AbstractRepository<E> {
 
 	protected abstract String getDefaultSortProperty();
 
+	/* (non-Javadoc)
+	 * @see sample.music.repo.SimpleRepository#findById(java.lang.Integer)
+	 */
+	@Override
 	public E findById(Integer id) {
 		return findById(id, null);
 	}
 	
+	/* (non-Javadoc)
+	 * @see sample.music.repo.SimpleRepository#findById(java.lang.Integer, java.lang.String)
+	 */
+	@Override
 	public E findById(Integer id, String loadgraph) {
 		Map<String, Object> ps = loadgraph == null
 				? Collections.emptyMap()

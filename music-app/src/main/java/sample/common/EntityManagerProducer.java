@@ -16,7 +16,7 @@ import javax.persistence.EntityManagerFactory;
  *
  */
 @ApplicationScoped
-public class PersistenceUnit {
+public class EntityManagerProducer {
 
 	@javax.persistence.PersistenceUnit
 	private EntityManagerFactory emf;
