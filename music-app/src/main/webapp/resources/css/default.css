@@ -20,6 +20,7 @@
 
 .header-session * {
 	float: inline;
+	padding-right: 2px;
 /* 	border: 1px solid; */
 /* 	border-color: blue; */
 }

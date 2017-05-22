@@ -2,8 +2,6 @@ package sample.music.repo;
 
 import java.util.List;
 
-import sample.common.MonitoredCDIBean;
-
 interface SimpleRepository<E> {
 
 	List<E> findAll(String loadgraph);
@@ -14,4 +12,5 @@ interface SimpleRepository<E> {
 
 	E findById(Integer id, String loadgraph);
 
+	E save(E e);
 }

@@ -8,7 +8,7 @@
 	<f:metadata>
 		<f:viewParam name="id" value="#{albumDetailsCtrlr.albumId}"
 			required="true" />
-		<f:viewAction action="#{albumDetailsCtrlr.onLoad}" />
+<!-- 		<f:viewAction action="#{albumDetailsCtrlr.onLoad}" /> -->
 	</f:metadata>
 	<ui:composition template="/defaultTemplate.xhtml">
 		<ui:define name="title">Album Details - #{albumDetailsCtrlr.album.title}</ui:define>
@@ -17,6 +17,8 @@
 			<p:panelGrid columns="2">
 				<h:outputText value="Track Count" />
 				<h:outputText value="#{albumDetailsCtrlr.album.trackCount}" />
+				<h:outputText value="Artist" />
+				<h:outputText value="#{albumDetailsCtrlr.album.artist.name}" />
 			</p:panelGrid>
 			<h3>Tracks</h3>
 			<p:dataTable var="a" value="#{albumDetailsCtrlr.album.tracks}">

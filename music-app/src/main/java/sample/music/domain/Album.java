@@ -48,14 +48,11 @@ import javax.persistence.NamedEntityGraphs;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.JoinFormula;
 
 /**
@@ -116,6 +113,7 @@ public class Album implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "Artist_id", referencedColumnName = "Artist_id", nullable = false, unique = false, insertable = true, updatable = true)
+	@NotNull
 	private Artist artist;
 
 	// @Column(name="Artist_id" , nullable=false , unique=true,

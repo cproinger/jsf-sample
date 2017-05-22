@@ -1,5 +1,7 @@
 package sample.common;
 
+import java.io.Serializable;
+
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
@@ -9,7 +11,9 @@ import org.slf4j.LoggerFactory;
 
 @Interceptor
 @Log
-public class LogInterceptor {
+public class LogInterceptor implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private final static Logger log = LoggerFactory.getLogger(LogInterceptor.class);
 	

@@ -33,9 +33,6 @@ abstract class AbstractRepository<E> implements SimpleRepository<E> {
 		this.clazz = clazz;
 	}
 
-	/* (non-Javadoc)
-	 * @see sample.music.repo.SimpleRepository#findAll(java.lang.String)
-	 */
 	@Override
 	@MonitoredCDIBean
 	public List<E> findAll(String loadgraph) {
@@ -51,10 +48,6 @@ abstract class AbstractRepository<E> implements SimpleRepository<E> {
 		}
 		return q.getResultList();
 	}
-	
-	/* (non-Javadoc)
-	 * @see sample.music.repo.SimpleRepository#findAll()
-	 */
 	@Override
 	@MonitoredCDIBean
 	public List<E> findAll() {
@@ -62,18 +55,10 @@ abstract class AbstractRepository<E> implements SimpleRepository<E> {
 	}
 
 	protected abstract String getDefaultSortProperty();
-
-	/* (non-Javadoc)
-	 * @see sample.music.repo.SimpleRepository#findById(java.lang.Integer)
-	 */
 	@Override
 	public E findById(Integer id) {
 		return findById(id, null);
 	}
-	
-	/* (non-Javadoc)
-	 * @see sample.music.repo.SimpleRepository#findById(java.lang.Integer, java.lang.String)
-	 */
 	@Override
 	public E findById(Integer id, String loadgraph) {
 		Map<String, Object> ps = loadgraph == null
@@ -82,4 +67,10 @@ abstract class AbstractRepository<E> implements SimpleRepository<E> {
 		return em.find(clazz, id, ps);
 	}
 
+	@Override
+	public E save(E e) {
+		E merged = em.merge(e);
+		em.flush();
+		return merged;
+	}
 }

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+	<f:viewParam name="id" value="#{albumEditCtrlr.albumId}"
+		required="true" />
+	<f:viewAction action="#{albumEditCtrlr.onLoad}" />
+</f:metadata>
+<ui:composition template="/defaultTemplate.xhtml">
+	<ui:define name="title">Edit Album - #{albumeEditCtrlr.album.title}</ui:define>
+	<ui:define name="content">
+		<h2>Edit Album - #{albumeEditCtrlr.album.title}</h2>
+		<h:form>
+			<p:panelGrid columns="3">
+				<p:outputLabel value="title" for="title" dir="ltr"/>
+				<p:inputText id="title" value="#{albumEditCtrlr.album.title}">
+					<f:validateLength minimum="1" maximum="80" />
+				</p:inputText>
+				<h:message for="title"/>
+
+				<p:outputLabel value="artist" for="artist" />
+				<p:autoComplete id="artist" value="#{albumEditCtrlr.album.artist}"
+					completeMethod="#{albumEditCtrlr.completeArtist}"
+					forceSelection="true" var="a" itemLabel="#{a.name}"
+					itemValue="#{a}" converter="#{artistConverter}" />
+				<h:message for="artist"/>
+			</p:panelGrid>
+			<h:commandButton action="#{albumEditCtrlr.save}" value="Save" />
+			<h:button outcome="albumList" value="Abort"/>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
