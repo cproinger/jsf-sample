@@ -50,6 +50,12 @@ public class AlbumDetailsCtrlrTest {
 			// TODO Auto-generated method stub
 			return null;
 		}
+
+		@Override
+		public Album save(Album e) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 		
 	}
 	

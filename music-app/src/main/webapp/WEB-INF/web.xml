@@ -9,7 +9,7 @@
 	<session-config>
 		<session-timeout>60</session-timeout>
 		<cookie-config>
-			<http-only>true</http-only>		
+			<http-only>true</http-only>
 		</cookie-config>
 	</session-config>
 	<!-- <distributable/> -->
@@ -39,7 +39,11 @@
 		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
 		<param-value>resources.application</param-value>
 	</context-param>
-
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>#{themeCtrlr.theme}</param-value>
+	</context-param>
+	
 	<filter>
 		<filter-name>javamelody</filter-name>
 		<filter-class>net.bull.javamelody.MonitoringFilter</filter-class>
@@ -62,7 +66,7 @@
 	<listener>
 		<listener-class>net.bull.javamelody.SessionListener</listener-class>
 	</listener>
-	
+
 	<login-config>
 		<auth-method>FORM</auth-method>
 		<form-login-config>
@@ -70,7 +74,7 @@
 			<form-error-page>/fail_login.xhtml</form-error-page>
 		</form-login-config>
 	</login-config>
-	
+
 	<security-role>
 		<role-name>user</role-name>
 	</security-role>

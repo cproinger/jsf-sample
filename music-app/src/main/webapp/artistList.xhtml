@@ -14,7 +14,7 @@
 			<p:dataTable var="artist" value="#{artistListCtrlr.artists}"
 				filteredValue="#{artistListCtrlr.filteredArtists}"
 				widgetVar="artistsTable" emptyMessage="No Artists found"
-				paginator="true"
+				paginator="true" tableStyle="table-layout:auto"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="10,20,50" rows="10" resizableColumns="true">
 

@@ -26,7 +26,7 @@
 				<p:autoComplete id="artist" value="#{albumEditCtrlr.album.artist}"
 					completeMethod="#{albumEditCtrlr.completeArtist}"
 					forceSelection="true" var="a" itemLabel="#{a.name}"
-					itemValue="#{a}" converter="#{artistConverter}" />
+					itemValue="#{a}" converter="#{artistConverter}" queryDelay="300" dropdown="true" maxResults="10"/>
 				<h:message for="artist"/>
 			</p:panelGrid>
 			<h:commandButton action="#{albumEditCtrlr.save}" value="Save" />
