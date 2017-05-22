@@ -8,7 +8,7 @@
 	<f:metadata>
 		<f:viewParam name="id" value="#{albumDetailsCtrlr.albumId}"
 			required="true" />
-<!-- 		<f:viewAction action="#{albumDetailsCtrlr.onLoad}" /> -->
+		<f:viewAction action="#{albumDetailsCtrlr.onLoad}" />
 	</f:metadata>
 	<ui:composition template="/defaultTemplate.xhtml">
 		<ui:define name="title">Album Details - #{albumDetailsCtrlr.album.title}</ui:define>

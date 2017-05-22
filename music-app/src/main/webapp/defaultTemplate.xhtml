@@ -2,13 +2,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title><ui:insert name="title">Music-App</ui:insert></title>
 	<h:outputStylesheet target="header" name="default.css" library="css" />
 </h:head>
 <h:body>
+	<div class="ajaxStatus">
+		<p:ajaxStatus>
+			<f:facet name="start">
+				<h:graphicImage name="ajax-loader.gif" library="img" />
+			</f:facet>
+			<f:facet name="complete">
+				<h:graphicImage name="ajax-loader.gif" library="img" styleClass="fadeOut"/>
+			</f:facet>
+		</p:ajaxStatus>
+	</div>
 	<div class="header">
 		<div class="header-logo">
 			<h:link outcome="index">
@@ -16,16 +27,16 @@
 			</h:link>
 		</div>
 		<ul class="horizontalMenu">
-			<li><h:link outcome="artistList" value="artists"/></li>
-			<li><h:link outcome="albumList" value="albums"/></li>
+			<li><h:link outcome="artistList" value="artists" /></li>
+			<li><h:link outcome="albumList" value="albums" /></li>
 		</ul>
 		<div class="header-session">
 			<ui:fragment rendered="#{identity.loggedIn}">
 				<span class="username" id="username">[#{sessionCtrlr.username}]</span>
 			</ui:fragment>
 			<h:form id="loginForm">
-				<h:link rendered="#{!identity.loggedIn}"
-					outcome="login" value="login" />
+				<h:link rendered="#{!identity.loggedIn}" outcome="login"
+					value="login" />
 				<h:commandLink rendered="#{identity.loggedIn}"
 					action="#{identity.logout}" value="logout" />
 			</h:form>
@@ -33,13 +44,12 @@
 				value="register" />
 		</div>
 	</div>
-	
 	<div class="main">
 		<ui:insert name="content">
 			<ui:include src="/noContent.xhtml" />
 		</ui:insert>
 	</div>
-	
+
 	<div class="footer"></div>
 </h:body>
 </html>

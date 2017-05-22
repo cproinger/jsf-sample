@@ -1,5 +1,22 @@
 @CHARSET "UTF-8";
 
+.ajaxStatus {
+	position: fixed;
+	z-index: 99;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+@keyframes fade {
+  0% { opacity: 1 }
+  100% { opacity: 0 }
+}
+
+.fadeOut {
+	opacity: 0;
+	animation: fade 0.5s linear;
+}
+
 .main {
 /* 	background-color: gray; */
 	border: 1;

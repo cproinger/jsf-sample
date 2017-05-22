@@ -14,7 +14,7 @@
 			<p:dataTable var="a" value="#{albumListCtrlr.albums}"
 				filteredValue="#{albumListCtrlr.filteredAlbums}"
 				widgetVar="albumTable" emptyMessage="No Albums found"
-				paginator="true" tableStyle="width:auto"
+				paginator="true" tableStyle="table-layout:auto"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15" rows="10">
 
@@ -28,7 +28,7 @@
 				<p:column headerText="Artist">
 					<h:link value="#{a.artist.name}" outcome="artistDetails"
 						includeViewParams="true">
-						<f:param value="#{a.id}" name="id" />
+						<f:param value="#{a.artist.id}" name="id" />
 					</h:link>
 				</p:column>
 
