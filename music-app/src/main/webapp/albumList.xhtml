@@ -9,12 +9,12 @@
 	<ui:define name="title">Albums</ui:define>
 	<ui:define name="content">
 		<h1>Albums</h1>
-
 		<h:form>
 			<p:dataTable var="a" value="#{albumListCtrlr.albums}"
 				filteredValue="#{albumListCtrlr.filteredAlbums}"
 				widgetVar="albumTable" emptyMessage="No Albums found"
 				paginator="true" tableStyle="table-layout:auto"
+				rowHover="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15" rows="10">
 
@@ -32,13 +32,14 @@
 					</h:link>
 				</p:column>
 
-				<p:column headerText="Tracks">
+				<p:column headerText="Tracks" style="text-align: right;">
 					<h:outputText value="#{a.trackCount}" />
 				</p:column>
 				
 				<p:column>
-					<h:link value="edit" outcome="albumEdit" includeViewParams="true">
+					<h:link outcome="albumEdit" includeViewParams="true">
 						<f:param value="#{a.id}" name="id"/>
+						<span class="fa fa-edit"/>
 					</h:link>
 				</p:column>
 			</p:dataTable>

@@ -20,17 +20,19 @@
 				<p:inputText id="title" value="#{albumEditCtrlr.album.title}">
 					<f:validateLength minimum="1" maximum="80" />
 				</p:inputText>
-				<h:message for="title"/>
+				<p:message for="title"/>
 
 				<p:outputLabel value="artist" for="artist" />
 				<p:autoComplete id="artist" value="#{albumEditCtrlr.album.artist}"
 					completeMethod="#{albumEditCtrlr.completeArtist}"
 					forceSelection="true" var="a" itemLabel="#{a.name}"
 					itemValue="#{a}" converter="#{artistConverter}" queryDelay="300" dropdown="true" maxResults="10"/>
-				<h:message for="artist"/>
+				<p:message for="artist"/>
+				<f:facet name="footer">
+					<p:commandButton action="#{albumEditCtrlr.save}" value="Save" icon="ui-icon-check"/>
+					<p:button outcome="albumList" value="Abort"/>
+				</f:facet>
 			</p:panelGrid>
-			<h:commandButton action="#{albumEditCtrlr.save}" value="Save" />
-			<h:button outcome="albumList" value="Abort"/>
 		</h:form>
 	</ui:define>
 </ui:composition>

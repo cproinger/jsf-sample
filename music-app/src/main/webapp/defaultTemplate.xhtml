@@ -11,16 +11,6 @@
 	<h:outputStylesheet target="header" name="default.css" library="css" />
 </h:head>
 <h:body>
-	<div class="ajaxStatus">
-		<p:ajaxStatus>
-			<f:facet name="start">
-				<h:graphicImage name="ajax-loader.gif" library="img" />
-			</f:facet>
-			<f:facet name="complete">
-				<h:graphicImage name="ajax-loader.gif" library="img" styleClass="fadeOut"/>
-			</f:facet>
-		</p:ajaxStatus>
-	</div>
 	<div class="header">
 		<div class="header-logo">
 			<h:link outcome="index">
@@ -28,21 +18,43 @@
 			</h:link>
 		</div>
 		<ul class="horizontalMenu">
-			<li><h:link outcome="artistList" value="artists" /></li>
+			<li><h:link outcome="artistList" value="artists"/></li>
 			<li><h:link outcome="albumList" value="albums" /></li>
 		</ul>
+		<div class="ajaxStatus" style="margin-top: 20px;">
+			<p:ajaxStatus>
+				<f:facet name="start">
+					<h:graphicImage name="ajax-loader.gif" library="img" />
+				</f:facet>
+				<f:facet name="complete">
+					<h:graphicImage name="ajax-loader.gif" library="img" styleClass="fadeOut"/>
+				</f:facet>
+			</p:ajaxStatus>
+		</div>
 		<div class="header-session">
 			<ui:fragment rendered="#{identity.loggedIn}">
 				<span class="username" id="username">[#{sessionCtrlr.username}]</span>
 			</ui:fragment>
+			<ui:fragment rendered="#{not identity.loggedIn}">
+					<p:graphicImage id="userIcon" name="unknownuser.png" library="img" width="32px" height="32px" styleClass="userimage"
+						>
+						<p:ajax event="mouseover" global="false"/>
+					</p:graphicImage>
+<!-- 					<p:ajax global="false"/> -->
+					<p:overlayPanel for="userIcon" hideEffect="blind" showEffect="blind">
+						<p:outputLabel value="Test"/>
+						<ul>
+							<li><h:link outcome="login"
+								value="login" /></li>
+							<li><h:link rendered="#{!identity.loggedIn}" outcome="registration"
+								value="register" /></li>
+						</ul>
+					</p:overlayPanel>
+			</ui:fragment>
 			<h:form id="loginForm">
-				<h:link rendered="#{!identity.loggedIn}" outcome="login"
-					value="login" />
 				<h:commandLink rendered="#{identity.loggedIn}"
 					action="#{identity.logout}" value="logout" />
 			</h:form>
-			<h:link rendered="#{!identity.loggedIn}" outcome="registration"
-				value="register" />
 		</div>
 	</div>
 	<div class="main">
