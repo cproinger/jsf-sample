@@ -5,4 +5,13 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
     version="2.2">
 
+	<application>
+		<resource-bundle>
+			<base-name>sample.i18n.messages</base-name>
+			<var>mymsg</var>
+		</resource-bundle>
+	</application>
+	<lifecycle>
+		<phase-listener>org.primefaces.component.lifecycle.LifecyclePhaseListener</phase-listener>
+	</lifecycle>
 </faces-config>
