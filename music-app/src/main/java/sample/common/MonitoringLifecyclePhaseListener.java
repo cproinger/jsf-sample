@@ -1,7 +1,6 @@
 package sample.common;
 
 import javax.faces.event.PhaseEvent;
-import javax.faces.event.PhaseId;
 import javax.servlet.http.HttpServletRequest;
 
 import org.primefaces.component.lifecycle.LifecyclePhaseListener;
