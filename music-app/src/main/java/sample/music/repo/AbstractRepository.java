@@ -11,6 +11,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.Session;
 import org.hibernate.annotations.QueryHints;
 
 import sample.common.MonitoredCDIBean;
@@ -61,9 +62,13 @@ abstract class AbstractRepository<E> implements SimpleRepository<E> {
 	}
 	@Override
 	public E findById(Integer id, String loadgraph) {
+		//ignore for now, use enableFetchProfile, that seems to work better (honor max fetch depth). 
 		Map<String, Object> ps = loadgraph == null
 				? Collections.emptyMap()
-				: Collections.singletonMap(QueryHints.LOADGRAPH, em.createEntityGraph(loadgraph));
+				: Collections.singletonMap(QueryHints.FETCHGRAPH, em.createEntityGraph(loadgraph));
+		
+//		if(loadgraph != null)
+//			em.unwrap(Session.class).enableFetchProfile(loadgraph);
 		return em.find(clazz, id, ps);
 	}
 

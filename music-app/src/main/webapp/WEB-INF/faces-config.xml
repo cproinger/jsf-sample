@@ -12,6 +12,7 @@
 		</resource-bundle>
 	</application>
 	<lifecycle>
-		<phase-listener>org.primefaces.component.lifecycle.LifecyclePhaseListener</phase-listener>
+<!-- 		<phase-listener>org.primefaces.component.lifecycle.LifecyclePhaseListener</phase-listener> -->
+		<phase-listener>sample.common.MonitoringLifecyclePhaseListener</phase-listener>
 	</lifecycle>
 </faces-config>

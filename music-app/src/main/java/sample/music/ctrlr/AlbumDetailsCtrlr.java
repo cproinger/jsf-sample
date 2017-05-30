@@ -22,7 +22,7 @@ public class AlbumDetailsCtrlr {
 	public void onLoad() {
 		if(albumId == null)
 			return;
-		album = albumRepo.findById(albumId);//, Album.GRAPH_ALBUM_DETAILS);
+		album = albumRepo.findById(albumId, Album.GRAPH_ALBUM_DETAILS);
 	}
 	
 	public Integer getAlbumId() {

@@ -16,7 +16,7 @@
 			<h2>Album: #{albumDetailsCtrlr.album.title}</h2>
 			<p:panelGrid columns="2">
 				<h:outputText value="Track Count" />
-				<h:outputText value="#{albumDetailsCtrlr.album.trackCount}" />
+				<h:outputText value="#{albumDetailsCtrlr.album.tracks.size()}" />
 				<h:outputText value="Artist" />
 				<h:outputText value="#{albumDetailsCtrlr.album.artist.name}" />
 			</p:panelGrid>

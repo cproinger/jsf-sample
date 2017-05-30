@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -14,7 +15,8 @@ import sample.music.domain.Album;
 import sample.music.repo.AlbumRepository;
 
 @Named
-@RequestScoped //replaced @ViewScoped, to albumTracks-lazy loading works. 
+//??? loadAlbums Called twice? @RequestScoped //replaced @ViewScoped, to albumTracks-lazy loading works.
+@ViewScoped
 public class AlbumListCtrlr implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -39,6 +41,6 @@ public class AlbumListCtrlr implements Serializable {
 	@PostConstruct
 	@MonitoredCDIBean
 	void loadAlbums() {
-		albums = albumRepo.findAll();//Album.GRAPH_ALBUM_TRACK_COUNT);
+		albums = albumRepo.findAll(Album.GRAPH_ALBUM_TRACK_COUNT);
 	}
 }

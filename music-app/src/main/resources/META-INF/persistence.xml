@@ -30,11 +30,35 @@
 			<!-- <property name="hibernate.cache.infinispan.pending-puts.cfg" -->
 			<!-- value="pending-puts" /> -->
 
-<!-- 			<property name="hibernate.show_sql" value="true" /> -->
-<!-- 			<property name="hibernate.format_sql" value="true" /> -->
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
 
 <!-- 			<property name="hibernate.cache.infinispan.statistics" value="true" /> -->
 <!-- 			<property name="hibernate.generate_statistics" value="true" /> -->
+
+			<property name="hibernate.batch_fetch_style" value="true"/>
+
+			<!-- @Version-Update batching problem in 11g: 
+				https://stackoverflow.com/questions/30519308/hibernate-saves-stale-data-with-hibernate-jdbc-batch-versioned-data 
+			-->
+<!-- 			<property name="hibernate.jdbc.batch_versioned_data" value="true"/> -->
+
+			<!-- default is 1 i think, setting this to 0 does help cache usage
+				in case of fetch-graphs. it seems to only apply when using hibernate-fetch-profiles
+				not when using jpa named entity graphs.  -->
+			<property name="hibernate.max_fetch_depth" value="2"/>
+			<!-- 
+			Whether the schema migration tool should halt on error, therefore terminating the bootstrap process. 
+			By default, the EntityManagerFactory or SessionFactory are created even if the schema migration throws exceptions. 
+			To prevent this default behavior, set this property value to true.
+			 -->
+			<property name="hibernate.hbm2ddl.halt_on_error" value="true"/>
+			<!-- TODO disable 
+			Initialize Lazy Proxies or Collections outside a given Transactional Persistence Context.
+			Although enabling this configuration can make LazyInitializationException go away, it’s better to use a fetch plan that guarantees that all properties are properly initialised before the Session is closed.
+			In reality, you shouldn’t probably enable this setting anyway.
+			 -->
+			<property name="hibernate.enable_lazy_load_no_trans" value="true"/>
 		</properties>
 	</persistence-unit>
 

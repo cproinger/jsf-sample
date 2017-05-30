@@ -33,6 +33,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -51,9 +52,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.FetchProfile;
+import org.hibernate.annotations.FetchProfiles;
 import org.hibernate.annotations.JoinFormula;
+import org.hibernate.annotations.FetchProfile.FetchOverride;
 
 /**
  *
@@ -75,11 +82,13 @@ import org.hibernate.annotations.JoinFormula;
 })
 @NamedEntityGraphs({
 	@NamedEntityGraph(name = Album.GRAPH_ALBUM_DETAILS, attributeNodes = @NamedAttributeNode(value = "tracks")),
-	@NamedEntityGraph(name = Album.GRAPH_ALBUM_TRACK_COUNT, attributeNodes = @NamedAttributeNode(value = "albumTracks"))
+	@NamedEntityGraph(name = Album.GRAPH_ALBUM_TRACK_COUNT, attributeNodes = @NamedAttributeNode(value = "albumTracks")), 
 })
-// @Cacheable(true)
-// @Cache(include = "non-lazy", usage =
-// CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@FetchProfiles({
+	@FetchProfile(name = Album.GRAPH_ALBUM_DETAILS, fetchOverrides = @FetchOverride(entity = Album.class, association = "tracks", mode = FetchMode.JOIN))
+})
+ @Cacheable(true)
+ @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Album implements Serializable {
 
 
@@ -102,6 +111,7 @@ public class Album implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	// @OneToOne(fetch = FetchType.LAZY) //-> NPE: Hibernate Bug?
 	@JoinFormula(value = "Album_id", referencedColumnName = "Album_id")
+	@BatchSize(size = 16)
 	private AlbumTracks albumTracks;
 
 	// MP-MANAGED-ADDED-AREA-BEGINNING @Title-field-annotation@
@@ -124,8 +134,14 @@ public class Album implements Serializable {
 	@OneToMany(targetEntity = Track.class, fetch = FetchType.LAZY, mappedBy = "album", cascade = CascadeType.REMOVE) // ,
 																														// cascade=CascadeType.ALL)
 	// @OrderBy("name")
-	// @Fetch(FetchMode.SELECT)
+	/* this does not work as expected, hibernate still makes a join when a named-entity-graph is used.
+	 *  however if we use fetch=EAGER from the beginning this works. 
+	 *  unfortunately eager can't be surcomvented with a named-entity-graph as it should 
+	 *  https://hibernate.atlassian.net/browse/HHH-8776
+	 */
+	@Fetch(FetchMode.SELECT)
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+	@BatchSize(size = 16)
 	private Set<Track> tracks = new HashSet<Track>();
 
 	// MP-MANAGED-UPDATABLE-ENDING
